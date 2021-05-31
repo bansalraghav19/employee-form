@@ -21,6 +21,12 @@ const Radio: React.FC<Props> = ({
       onChange(value as string);
     }
   };
+  const handleKeyBoard = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    if (typeof onChange === "function" && event.key === "Enter") {
+      onChange(value as string);
+    }
+  };
   return (
     <div className={`radio-container ${className}`}>
       <label htmlFor={value} className="radio-label">
@@ -34,6 +40,7 @@ const Radio: React.FC<Props> = ({
         className="radio-button"
         onChange={handleChange}
         checked={checked || false}
+        onKeyPress={handleKeyBoard}
       />
     </div>
   );

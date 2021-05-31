@@ -14,6 +14,12 @@ const CheckBox: React.FC<Props> = ({ value, name, onChange, checked }) => {
       onChange(value as string);
     }
   };
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    if (onChange instanceof Function && event.key === "Enter") {
+      onChange(value as string);
+    }
+  };
   return (
     <div className="checkbox-container">
       <div className="checkbox-box">
@@ -25,6 +31,7 @@ const CheckBox: React.FC<Props> = ({ value, name, onChange, checked }) => {
           className="checkbox-button"
           onChange={handleChange}
           checked={checked}
+          onKeyPress={handleKeyPress}
         />
         <div className="pseudo-box"></div>
       </div>

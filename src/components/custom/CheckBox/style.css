@@ -28,7 +28,6 @@
   appearance: none;
   -moz-appearance: none;
   border: none;
-  outline: none;
   margin: 0;
   z-index: 2;
 }

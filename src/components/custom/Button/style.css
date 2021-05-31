@@ -17,6 +17,10 @@
   z-index: 20;
 }
 
+.btn-container:focus {
+  outline: 2px solid black;
+}
+
 .btn-container:hover {
   background-color: var(--primary-color-dark);
 }
