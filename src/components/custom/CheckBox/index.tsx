@@ -11,7 +11,6 @@ interface Props {
 const CheckBox: React.FC<Props> = ({ value, name, onChange, checked }) => {
   const handleChange = () => {
     if (onChange instanceof Function) {
-      console.log("Hello");
       onChange(value as string);
     }
   };

@@ -79,7 +79,7 @@ const Marraige = () => {
       </div>
       <div className="error-box mb-10">
         <CSSTransition
-          in={hasError && martialStatus === null}
+          in={hasError && martialStatus === ""}
           timeout={300}
           classNames="fade-in"
           unmountOnExit

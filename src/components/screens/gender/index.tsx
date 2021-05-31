@@ -17,7 +17,6 @@ const Gender = () => {
 
   useLayoutEffect(() => {
     setGender(formData?.gender || "");
-    console.log(formData?.gender);
   }, [formData?.gender]);
 
   const handleChange = (id: string) => {
