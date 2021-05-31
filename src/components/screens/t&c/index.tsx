@@ -1,4 +1,5 @@
 /*  eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-script-url */
 
 import React, { CSSProperties, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,9 +53,14 @@ const Terms = () => {
   return (
     <div style={styles} className="page">
       <div style={containerStyles} className="mb-10">
-        <CheckBox onChange={handleChange} name="terms" checked={isChecked} />
-        <span>
-          I accept <a>terms and conditions</a>
+        <CheckBox
+          value="tandc"
+          onChange={handleChange}
+          name="terms"
+          checked={isChecked}
+        />
+        <span style={{ fontSize: ".8rem" }}>
+          I accept <a href="javascript:void(0);">terms and conditions</a>
         </span>
       </div>
       <div className="error-box">

@@ -11,6 +11,7 @@ interface Props {
 const CheckBox: React.FC<Props> = ({ value, name, onChange, checked }) => {
   const handleChange = () => {
     if (onChange instanceof Function) {
+      console.log("Hello");
       onChange(value as string);
     }
   };
@@ -23,13 +24,13 @@ const CheckBox: React.FC<Props> = ({ value, name, onChange, checked }) => {
           name={name}
           value={value}
           className="checkbox-button"
-          onClick={handleChange}
+          onChange={handleChange}
           checked={checked}
         />
         <div className="pseudo-box"></div>
       </div>
       <label htmlFor={value} className="checkbox-label">
-        {value}
+        {/* {value} */}
       </label>
     </div>
   );

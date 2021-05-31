@@ -18,12 +18,12 @@ const App = () => {
   useEffect(() => {
     dispatch(getFormData(storageValue));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     setStorageValue(formData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setStorageValue]);
+  }, [formData]);
 
   const timeout = {
     enter: 600,
