@@ -19,6 +19,7 @@ const Button: React.FC<Props> = ({ children, style, onClick, className }) => {
       style={style}
       onClick={handleClick}
       className={`btn-container ${className}`}
+      type="submit"
     >
       {children}
     </button>

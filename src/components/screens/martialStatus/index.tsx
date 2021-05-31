@@ -1,4 +1,11 @@
-import React, { useState, ChangeEvent, useLayoutEffect } from "react";
+import React, {
+  useState,
+  ChangeEvent,
+  useLayoutEffect,
+  useRef,
+  useEffect,
+  FormEvent,
+} from "react";
 import { CSSTransition } from "react-transition-group";
 import { useHistory } from "react-router-dom";
 import "./style.css";
@@ -18,6 +25,13 @@ const Marraige = () => {
   const history = useHistory();
   const formData = useSelector((state: StoreInterface) => state.formData.data);
   const dispatch = useDispatch();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (martialStatus === "Married") {
+      inputRef?.current?.focus();
+    }
+  }, [martialStatus]);
 
   useLayoutEffect(() => {
     setMartialStatus(formData?.martialStatus || "");
@@ -31,7 +45,8 @@ const Marraige = () => {
     }
   };
 
-  const handleClick = async () => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
       if (!martialStatus) {
         if (!hasError) setHasError(true);
@@ -44,6 +59,7 @@ const Marraige = () => {
         history.push("/other");
       }
     } catch (error) {
+      inputRef?.current?.focus();
       setHasError(true);
       setErrorMessage(error);
     }
@@ -60,11 +76,12 @@ const Marraige = () => {
     } catch (error) {
       setHasError(true);
       setErrorMessage(error);
+      inputRef?.current?.focus();
     }
   };
 
   return (
-    <div className="page status-container">
+    <form onSubmit={handleSubmit} className="page status-container">
       <h2 className="header mb-20">What's your Martial status?</h2>
       <div className="radio-btns mb-10">
         {["Married", "Unmarried"].map((item) => (
@@ -100,12 +117,11 @@ const Marraige = () => {
           hasError={hasError && martialStatus !== ""}
           errorMessage={errorMessage}
           name="Spouse Name"
+          inputRef={inputRef}
         />
       </CSSTransition>
-      <Button className="button mt-10" onClick={handleClick}>
-        Next
-      </Button>
-    </div>
+      <Button className="button mt-10">Next</Button>
+    </form>
   );
 };
 export default Marraige;

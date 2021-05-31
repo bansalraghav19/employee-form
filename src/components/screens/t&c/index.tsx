@@ -1,7 +1,12 @@
 /*  eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-script-url */
 
-import React, { CSSProperties, useLayoutEffect, useState } from "react";
+import React, {
+  CSSProperties,
+  FormEvent,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { CSSTransition } from "react-transition-group";
@@ -34,7 +39,8 @@ const Terms = () => {
     setIsChecked(formData?.istermsChecked || false);
   }, [formData?.istermsChecked]);
 
-  const handleClick = () => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (isChecked) {
       dispatch(getFormData({ ...formData, istermsChecked: true }));
       history.push("/final");
@@ -51,7 +57,7 @@ const Terms = () => {
   };
 
   return (
-    <div style={styles} className="page">
+    <form onSubmit={handleSubmit} style={styles} className="page">
       <div style={containerStyles} className="mb-10">
         <CheckBox
           value="tandc"
@@ -73,10 +79,10 @@ const Terms = () => {
           <div className="error">Please select the terms & conditions</div>
         </CSSTransition>
       </div>
-      <Button className="mt-20" onClick={handleClick} style={buttonStyles}>
+      <Button className="mt-20" style={buttonStyles}>
         Submit
       </Button>
-    </div>
+    </form>
   );
 };
 

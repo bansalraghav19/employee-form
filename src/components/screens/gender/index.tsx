@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { FormEvent, useLayoutEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./style.css";
 import Radio from "../../custom/Radio";
@@ -26,7 +26,8 @@ const Gender = () => {
     }
   };
 
-  const handleClick = () => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (!gender) {
       setHasError(true);
     } else {
@@ -35,7 +36,7 @@ const Gender = () => {
     }
   };
   return (
-    <div className="page gender">
+    <form onSubmit={handleSubmit} className="page gender">
       <h2 className="header mb-30">What is your Gender?</h2>
       <div className="radio-btns mb-10">
         {["Male", "Female"].map((item) => (
@@ -59,10 +60,8 @@ const Gender = () => {
           <div className="error">Please select the gender</div>
         </CSSTransition>
       </div>
-      <Button onClick={handleClick} className="button mt-30">
-        Next
-      </Button>
-    </div>
+      <Button className="button mt-30">Next</Button>
+    </form>
   );
 };
 

@@ -37,7 +37,7 @@
 }
 
 .input-container .input:focus ~ .underline::before,
-.input-container .input:valid ~ .underline::before {
+.input-container .input:not(.input[value=""]) ~ .underline::before {
   transform: scaleX(1);
 }
 
@@ -54,16 +54,16 @@
 }
 
 .input-container .input:focus ~ .input-label,
-.input-container .input:valid ~ .input-label {
+.input-container .input:not(.input[value=""]) ~ .input-label {
   transform: translateY(-20px);
   font-size: 0.5rem;
   letter-spacing: 1px;
   color: var(--primary-color);
 }
 
-.input-container .showError:focus ~ .input-label,
-.input-container .showError:valid ~ .input-label {
-  color: red;
+.input-container .input.showError:focus ~ .input-label,
+.input-container .input.showError ~ .input-label {
+  color: red !important;
 }
 
 .error {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { getFormData } from "../../../redux/action";
@@ -9,20 +9,19 @@ const Final = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const formData = useSelector((state: StoreInterface) => state.formData.data);
-  const handleClick = () => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     dispatch(getFormData({}));
-    history.push("*");
+    history.push("/");
   };
   return (
-    <div className="page">
+    <form onSubmit={handleSubmit} className="page">
       <h2
         style={{ position: "relative", fontSize: "1rem" }}
       >{`Thank you for taking the time to fill the form, ${formData?.firstName} ${formData?.lastName}.
   `}</h2>
-      <Button onClick={handleClick} className="mt-30">
-        Reset Form
-      </Button>
-    </div>
+      <Button className="mt-30">Reset Form</Button>
+    </form>
   );
 };
 

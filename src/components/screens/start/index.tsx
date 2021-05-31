@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, FormEvent } from "react";
 import { useHistory } from "react-router";
 import Button from "../../custom/Button";
 
@@ -13,14 +13,15 @@ const buttonStyle: CSSProperties = {
 
 const Start = () => {
   const history = useHistory();
-  const handleClick = () => history.push("firstname");
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    history.push("firstname");
+  };
   return (
-    <div className="page">
+    <form onSubmit={handleSubmit} className="page">
       <h2 style={headerStyle}>Looking for Connecting with us?</h2>
-      <Button style={buttonStyle} onClick={handleClick}>
-        Sign Up
-      </Button>
-    </div>
+      <Button style={buttonStyle}>Sign Up</Button>
+    </form>
   );
 };
 

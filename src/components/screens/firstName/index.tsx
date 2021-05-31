@@ -1,4 +1,11 @@
-import React, { ChangeEvent, useLayoutEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { StoreInterface } from "../../../redux/store/store";
 import { getFormData } from "../../../redux/action";
@@ -15,12 +22,19 @@ const FirstName = () => {
   const [firstName, setFirstName] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    console.log(inputRef);
+    inputRef?.current?.focus();
+  }, [inputRef]);
 
   useLayoutEffect(() => {
     setFirstName(formData?.firstName || "");
   }, [formData?.firstName]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
       await emptyCheck(firstName, "First Name");
       await whiteSpaces(firstName, "First Name");
@@ -29,6 +43,7 @@ const FirstName = () => {
     } catch (error) {
       setHasError(true);
       setErrorMessage(error);
+      inputRef?.current?.focus();
     }
   };
 
@@ -43,11 +58,12 @@ const FirstName = () => {
     } catch (error) {
       setHasError(true);
       setErrorMessage(error);
+      inputRef?.current?.focus();
     }
   };
 
   return (
-    <div className="page firstname-container">
+    <form onSubmit={handleSubmit} className="page firstname-container">
       <h2>Hi there, what's your first name?</h2>
       <Input
         hasError={hasError}
@@ -55,11 +71,10 @@ const FirstName = () => {
         onChange={handleChange}
         value={firstName}
         name="First Name"
+        inputRef={inputRef}
       />
-      <Button className="btn mt-30" onClick={handleSubmit}>
-        Next
-      </Button>
-    </div>
+      <Button className="btn mt-30">Next</Button>
+    </form>
   );
 };
 

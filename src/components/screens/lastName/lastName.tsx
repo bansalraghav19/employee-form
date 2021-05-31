@@ -1,4 +1,10 @@
-import React, { useState, ChangeEvent, useLayoutEffect } from "react";
+import React, {
+  useState,
+  ChangeEvent,
+  useLayoutEffect,
+  useRef,
+  FormEvent,
+} from "react";
 import "./style.css";
 import Button from "../../custom/Button";
 import Input from "../../custom/Input";
@@ -15,12 +21,18 @@ const FirstName = () => {
   const [lastName, setLastName] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useLayoutEffect(() => {
+    inputRef?.current?.focus();
+  }, [inputRef]);
 
   useLayoutEffect(() => {
     setLastName(formData?.lastName || "");
   }, [formData?.lastName]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
     try {
       await emptyCheck(lastName, "Last Name");
       await whiteSpaces(lastName, "Last Name");
@@ -29,6 +41,7 @@ const FirstName = () => {
     } catch (error) {
       setHasError(true);
       setErrorMessage(error);
+      inputRef?.current?.focus();
     }
   };
 
@@ -43,11 +56,12 @@ const FirstName = () => {
     } catch (error) {
       setHasError(true);
       setErrorMessage(error);
+      inputRef?.current?.focus();
     }
   };
 
   return (
-    <div className="page lastname">
+    <form onSubmit={handleSubmit} className="page lastname">
       <h2>And your last name?</h2>
       <Input
         value={lastName}
@@ -55,11 +69,10 @@ const FirstName = () => {
         errorMessage={errorMessage}
         name="Last Name"
         onChange={handleChange}
+        inputRef={inputRef}
       />
-      <Button className="btn mt-30" onClick={handleSubmit}>
-        Next
-      </Button>
-    </div>
+      <Button className="btn mt-30">Next</Button>
+    </form>
   );
 };
 

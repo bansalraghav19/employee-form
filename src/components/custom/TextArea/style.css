@@ -34,7 +34,7 @@
 }
 
 .textarea-container .textarea:focus ~ .underline,
-.textarea-container .textarea:valid ~ .underline {
+.textarea-container .textarea:not(textarea[value=""]) ~ .underline {
   transform: scaleX(1);
 }
 
@@ -51,7 +51,7 @@
 }
 
 .textarea-container .textarea:focus ~ .textarea-label,
-.textarea-container .textarea:valid ~ .textarea-label {
+.textarea-container .textarea:not(:empty) ~ .textarea-label {
   transform: translateY(-20px);
   font-size: 0.5rem;
   letter-spacing: 1px;
