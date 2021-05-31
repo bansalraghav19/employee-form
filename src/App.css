@@ -1,38 +1,148 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: hsl(165, 100%, 41%);
+  --primary-color-dark: hsl(165, 69%, 65%);
+  --grey-color: #808080;
+}
+
+html {
+  font-size: 26px;
+  user-select: none;
+}
+
+body {
+  overflow: hidden;
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  height: 100vh;
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+
+.transition-box {
+  flex: 0 65%;
+  align-self: stretch;
+  background-color: #fbb034;
+  background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
+}
+
+.page-box {
+  position: relative;
+  height: 100%;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.glass {
+  position: relative;
+  flex: 0 35%;
+  background: var(--primary-color);
+  background-image: url("https://groww.in/logo-groww270.png");
+  filter: blur(1px);
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: cover;
+  align-self: stretch;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media only screen and (max-width: 767px) {
+  .glass {
+    display: none;
   }
-  to {
-    transform: rotate(360deg);
+  .transition-box {
+    flex: 0 100%;
   }
+}
+
+.pageSlider-exit > .page {
+  z-index: 1;
+}
+
+.pageSlider-enter > .page {
+  z-index: 10;
+}
+
+.pageSlider-enter > .page,
+.pageSlider-exit > .page {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.pageSlider-enter.pageSlider-enter-active > .page {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 600ms linear;
+}
+
+.pageSlider-enter.pageSlider-exit-active > .page {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 600ms linear;
+}
+
+.page {
+  padding: 0 30px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.mb-50 {
+  margin-bottom: 50px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.fade-in-enter {
+  opacity: 0;
+  transform: translateY(-5px);
+}
+
+.fade-in-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 300ms, transform 300ms;
+}
+
+.fade-in-exit {
+  opacity: 1;
+}
+
+.fade-in-exit-active {
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 300ms, transform 300ms;
 }

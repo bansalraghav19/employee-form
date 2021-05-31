@@ -1,0 +1,25 @@
+.gender {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.gender > .header {
+  position: relative;
+  font-size: 1rem;
+}
+
+.gender > .radio-btns {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 10px;
+}
+
+.radio-btns > .btn:not(:last-child) {
+  margin-right: 30px;
+}
+
+.gender > .button {
+  align-self: flex-start;
+}

@@ -1,0 +1,87 @@
+.checkbox-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+.checkbox-container .checkbox-label {
+  position: relative;
+  color: black;
+  font-size: 1rem;
+  user-select: none;
+  margin-right: 10px;
+}
+
+.checkbox-container .checkbox-box {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.checkbox-container .checkbox-box .checkbox-button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
+  border: none;
+  outline: none;
+  margin: 0;
+  z-index: 2;
+}
+
+.checkbox-button .checkbox-box .pseudo-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s;
+  font-size: 16px;
+  font-weight: bolder;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.checkbox-container .checkbox-box .pseudo-box::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  border: 1px solid black;
+}
+
+.checkbox-container .checkbox-box .pseudo-box::before {
+  content: "";
+  position: absolute;
+  display: block;
+  transform: rotate(45deg);
+  height: 13px;
+  width: 7.8px;
+  left: 6px;
+  top: 1px;
+  border-bottom: 3px solid white;
+  border-right: 3px solid white;
+  opacity: 0;
+  z-index: 22;
+}
+
+.checkbox-container
+  .checkbox-box
+  .checkbox-button:checked
+  ~ .pseudo-box::after {
+  background-color: var(--primary-color);
+  border: none;
+}
+
+.checkbox-container
+  .checkbox-box
+  .checkbox-button:checked
+  ~ .pseudo-box::before {
+  opacity: 1;
+}

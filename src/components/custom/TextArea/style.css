@@ -1,0 +1,59 @@
+.textarea-container {
+  position: relative;
+  min-width: 300px;
+  background: transparent;
+  user-select: none;
+  color: black;
+}
+
+.textarea-container .textarea {
+  border: none;
+  outline: none;
+  width: 100%;
+  border-bottom: 2px solid var(--grey-color);
+  font-size: 0.7rem;
+  padding: 0.2rem 0;
+  font-weight: 500;
+  padding: 5px 0;
+  position: relative;
+  background: transparent;
+  resize: none;
+  overflow: hidden;
+}
+
+.textarea-container .underline {
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  width: 100%;
+  height: 3px;
+  background: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform 0.4s;
+  transform-origin: center;
+}
+
+.textarea-container .textarea:focus ~ .underline,
+.textarea-container .textarea:valid ~ .underline {
+  transform: scaleX(1);
+}
+
+.textarea-container .textarea-label {
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 5px 0;
+  top: 0px;
+  transition: all 0.3s;
+  background: transparent;
+}
+
+.textarea-container .textarea:focus ~ .textarea-label,
+.textarea-container .textarea:valid ~ .textarea-label {
+  transform: translateY(-20px);
+  font-size: 0.5rem;
+  letter-spacing: 1px;
+  color: var(--primary-color);
+}
