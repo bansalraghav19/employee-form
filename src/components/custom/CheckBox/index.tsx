@@ -18,7 +18,7 @@ const CheckBox: React.FC<Props> = ({ name, values, formValues }) => {
   const { value, onChange, hasError, errorMessage } = formValues[name] || {};
   const handleChange = () => {
     if (onChange instanceof Function) {
-      onChange(name as string, value ? "" : (values as string));
+      onChange(name as string, value ? "" : (values as string), "CHECKBOX");
     }
   };
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {

@@ -13,7 +13,7 @@ const TextArea: React.FC<Props> = ({ formValues, name, className, eRef }) => {
   const { onChange, value } = formValues[name] || {};
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange instanceof Function) {
-      onChange(event.target.name, event.target.value, "text_area");
+      onChange(event.target.name, event.target.value, "TEXTAREA");
     }
   };
 

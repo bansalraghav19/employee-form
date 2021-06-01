@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./style.css";
 
@@ -15,13 +15,21 @@ interface Props {
   inputRef?: React.LegacyRef<HTMLInputElement>;
   eRef?: any;
   formValues?: any;
+  inputType?: string;
 }
 
-const Input: React.FC<Props> = ({ name, className, eRef, formValues }) => {
+const Input: React.FC<Props> = ({
+  name,
+  className,
+  eRef,
+  formValues,
+  inputType,
+}) => {
   const { value, hasError, errorMessage, onChange } = formValues?.[name] || {};
+  const [curInputType, setCurInputType] = useState(inputType);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange instanceof Function) {
-      onChange(event?.target?.name, event?.target?.value, "input");
+      onChange(event?.target?.name, event?.target?.value, "INPUT");
     }
   };
 
@@ -30,6 +38,9 @@ const Input: React.FC<Props> = ({ name, className, eRef, formValues }) => {
       eRef.current[name] = node;
     }
   }, []);
+
+  const togglePasswordInput = () =>
+    setCurInputType(curInputType === "text" ? "password" : "text");
 
   return (
     <>
@@ -41,11 +52,18 @@ const Input: React.FC<Props> = ({ name, className, eRef, formValues }) => {
           name={name}
           onChange={handleChange}
           autoComplete="off"
+          type={curInputType}
         />
         <span className={`underline ${hasError && "error-underline"}`}></span>
         <label className="input-label" htmlFor={name}>
           {name}
         </label>
+        {inputType === "password" && (
+          <div
+            onClick={togglePasswordInput}
+            className={`eye ${curInputType === "password" ? "active" : ""}`}
+          ></div>
+        )}
       </div>
       <div className="error-box mb-20">
         <CSSTransition

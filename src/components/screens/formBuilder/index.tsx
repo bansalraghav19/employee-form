@@ -5,11 +5,7 @@ import CheckBox from "../../custom/CheckBox";
 import Input from "../../custom/Input";
 import TextArea from "../../custom/TextArea";
 import RadioGroup from "../../custom/Radio/RadioGroup";
-import {
-  emptyCheck,
-  whiteSpaces,
-  validateRadio,
-} from "../../../utilities/validators";
+import { validator } from "../../../utilities/validators";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreInterface } from "../../../redux/store/store";
@@ -61,39 +57,6 @@ const FormBuilder: React.FC<PropsI> = ({
       return newFormValues;
     });
   }, [selector]);
-
-  const validator = async (
-    value: string,
-    fieldName: string,
-    fieldType: string
-  ) => {
-    let dataPayload = {
-      hasError: false,
-      errorMessage: "",
-    };
-    try {
-      switch (fieldType) {
-        case "input":
-          await emptyCheck(value, fieldName);
-          await whiteSpaces(value, fieldName);
-          break;
-        case "radio_group":
-          await validateRadio(value, fieldName);
-          break;
-        case "checkbox":
-          await validateRadio(value, fieldName);
-          break;
-        default:
-          break;
-      }
-    } catch (error) {
-      dataPayload = {
-        hasError: true,
-        errorMessage: error,
-      };
-    }
-    return dataPayload;
-  };
 
   const onChange = async (
     fieldName: string,
@@ -151,7 +114,7 @@ const FormBuilder: React.FC<PropsI> = ({
       <h2 className="form-heading">{heading}</h2>
       {fields?.map((field: any) => {
         switch (field.type) {
-          case "text_area":
+          case "TEXTAREA":
             return (
               <TextArea
                 className="mb-20"
@@ -160,15 +123,15 @@ const FormBuilder: React.FC<PropsI> = ({
                 formValues={formValues}
               />
             );
-          case "input":
+          case "INPUT":
             return <Input eRef={eRef} {...field} formValues={formValues} />;
-          case "button":
+          case "BUTTON":
             return <Button {...field}>{field.name}</Button>;
-          case "radio_group":
+          case "RADIO_GROUP":
             return (
               <RadioGroup eRef={eRef} {...field} formValues={formValues} />
             );
-          case "checkbox":
+          case "CHECKBOX":
             return <CheckBox {...field} formValues={formValues} />;
           default:
             return null;

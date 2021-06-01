@@ -20,7 +20,7 @@ const RadioGroup: React.FC<any> = (props) => {
 
   const handleChange = (id: string, index: number) => {
     if (onChange instanceof Function) {
-      onChange(props.name, id, "radio_group");
+      onChange(props.name, id, "RADIO_GROUP");
       setCurRadioId(index);
     }
   };

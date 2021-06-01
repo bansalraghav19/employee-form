@@ -3,7 +3,7 @@ export const formFields: any = [
     heading: "Looking for Connecting with us?",
     fields: [
       {
-        type: "button",
+        type: "BUTTON",
         name: "Start",
       },
     ],
@@ -13,12 +13,13 @@ export const formFields: any = [
     fields: [
       {
         name: "First Name",
-        type: "input",
+        type: "INPUT",
         required: true,
         whitespace: true,
+        inputType: "text",
       },
       {
-        type: "button",
+        type: "BUTTON",
         name: "Next",
       },
     ],
@@ -29,12 +30,13 @@ export const formFields: any = [
     fields: [
       {
         name: "Last Name",
-        type: "input",
+        type: "INPUT",
         required: true,
         whitespace: true,
+        inputType: "text",
       },
       {
-        type: "button",
+        type: "BUTTON",
         name: "Next",
       },
     ],
@@ -45,13 +47,11 @@ export const formFields: any = [
     fields: [
       {
         name: "gender",
-        type: "radio_group",
+        type: "RADIO_GROUP",
         values: ["Male", "Female"],
-        required: true,
-        whitespace: true,
       },
       {
-        type: "button",
+        type: "BUTTON",
         name: "Next",
       },
     ],
@@ -62,35 +62,67 @@ export const formFields: any = [
     fields: [
       {
         name: "martial status",
-        type: "radio_group",
+        type: "RADIO_GROUP",
         values: ["Married", "Unmarried"],
         childNodes: [
           {
             name: "Spouse Name",
-            type: "input",
+            type: "INPUT",
             required: true,
             whitespace: true,
           },
         ],
-        required: true,
-        whitespace: true,
       },
       {
-        type: "button",
+        type: "BUTTON",
         name: "Next",
       },
     ],
     stateDetails: ["martial status", "Spouse Name"],
   },
   {
+    heading: "What's your Email Address?",
+    fields: [
+      {
+        name: "Email Adress",
+        type: "INPUT",
+        required: true,
+        whitespace: true,
+        inputType: "email",
+      },
+      {
+        type: "BUTTON",
+        name: "Next",
+      },
+    ],
+    stateDetails: ["Email Adress"],
+  },
+  {
+    heading: "Enter a Password?",
+    fields: [
+      {
+        name: "Password",
+        type: "INPUT",
+        required: true,
+        whitespace: true,
+        inputType: "password",
+      },
+      {
+        type: "BUTTON",
+        name: "Next",
+      },
+    ],
+    stateDetails: ["Password"],
+  },
+  {
     heading: "Tell us a bit about yourself",
     fields: [
       {
         name: "Other Details",
-        type: "text_area",
+        type: "TEXTAREA",
       },
       {
-        type: "button",
+        type: "BUTTON",
         name: "Next",
       },
     ],
@@ -101,11 +133,11 @@ export const formFields: any = [
     fields: [
       {
         name: "Terms and Conditions",
-        type: "checkbox",
+        type: "CHECKBOX",
         values: "I accept terms and conditions",
       },
       {
-        type: "button",
+        type: "BUTTON",
         name: "Submit",
       },
     ],
