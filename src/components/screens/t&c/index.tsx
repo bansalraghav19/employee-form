@@ -43,7 +43,7 @@ const Terms = () => {
     event.preventDefault();
     if (isChecked) {
       dispatch(getFormData({ ...formData, istermsChecked: true }));
-      history.push("/final");
+      history.push("/final", { redirect: true });
     } else {
       setHasError(true);
     }

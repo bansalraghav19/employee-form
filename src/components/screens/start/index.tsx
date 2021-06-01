@@ -15,7 +15,7 @@ const Start = () => {
   const history = useHistory();
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    history.push("firstname");
+    history.push("firstname", { redirect: true });
   };
   return (
     <form onSubmit={handleSubmit} className="page">

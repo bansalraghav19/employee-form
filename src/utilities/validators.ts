@@ -23,3 +23,16 @@ export const whiteSpaces = async (
     }
   });
 };
+
+export const validateRadio = async (
+  value: string,
+  fieldName: string
+): Promise<string> => {
+  return new Promise<string>((resolve, reject) => {
+    if (value.trim().length) {
+      resolve("OK");
+    } else {
+      reject(`Please select the ${fieldName}`);
+    }
+  });
+};

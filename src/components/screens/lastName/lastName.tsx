@@ -37,7 +37,7 @@ const FirstName = () => {
       await emptyCheck(lastName, "Last Name");
       await whiteSpaces(lastName, "Last Name");
       dispatch(getFormData({ ...formData, lastName }));
-      history.push("/gender");
+      history.push("/gender", { redirect: true });
     } catch (error) {
       setHasError(true);
       setErrorMessage(error);

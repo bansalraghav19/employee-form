@@ -31,7 +31,7 @@ const Hobbies = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(getFormData({ ...formData, otherDetails }));
-    history.push("/t&c");
+    history.push("/t&c", { redirect: true });
   };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) =>

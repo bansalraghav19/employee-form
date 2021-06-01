@@ -25,7 +25,6 @@ const FirstName = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    console.log(inputRef);
     inputRef?.current?.focus();
   }, [inputRef]);
 
@@ -39,7 +38,7 @@ const FirstName = () => {
       await emptyCheck(firstName, "First Name");
       await whiteSpaces(firstName, "First Name");
       dispatch(getFormData({ ...formData, firstName }));
-      history.push("/lastname");
+      history.push("/lastname", { redirect: true });
     } catch (error) {
       setHasError(true);
       setErrorMessage(error);

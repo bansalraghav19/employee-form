@@ -56,7 +56,7 @@ const Marraige = () => {
           await whiteSpaces(spouseName, "Spouse Name");
         }
         dispatch(getFormData({ ...formData, martialStatus, spouseName }));
-        history.push("/other");
+        history.push("/other", { redirect: true });
       }
     } catch (error) {
       inputRef?.current?.focus();

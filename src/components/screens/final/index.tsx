@@ -18,7 +18,7 @@ const Final = () => {
     <form onSubmit={handleSubmit} className="page">
       <h2
         style={{ position: "relative", fontSize: "1rem" }}
-      >{`Thank you for taking the time to fill the form, ${formData?.firstName} ${formData?.lastName}.
+      >{`Thank you for taking the time to fill the form, ${formData?.["First Name"]} ${formData?.["Last Name"]}.
   `}</h2>
       <Button className="mt-30">Reset Form</Button>
     </form>

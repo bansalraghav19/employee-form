@@ -1,7 +1,7 @@
 import * as Types from "./actionType";
 
 interface State {
-  data: Types.dataInterface;
+  data: any;
   error: boolean;
   isLoading: boolean;
 }

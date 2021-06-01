@@ -18,6 +18,7 @@
   width: 20px;
   height: 20px;
   position: relative;
+  margin-right: 5px;
 }
 
 .checkbox-container .checkbox-box .checkbox-button {

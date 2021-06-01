@@ -1,0 +1,13 @@
+.form-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 500px;
+}
+
+.form-container > .form-heading {
+  position: relative;
+  font-size: 1rem;
+}

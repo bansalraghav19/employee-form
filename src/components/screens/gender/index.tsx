@@ -32,7 +32,7 @@ const Gender = () => {
       setHasError(true);
     } else {
       dispatch(getFormData({ ...formData, gender }));
-      history.push("/marriage");
+      history.push("/marriage", { redirect: true });
     }
   };
   return (

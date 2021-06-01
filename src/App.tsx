@@ -3,11 +3,12 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreInterface } from "./redux/store/store";
 import { getFormData } from "./redux/action";
-import Routes from "./utilities/routes";
+import { formFields } from "./utilities/formBuilderData";
 import "./App.css";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { useEffect } from "react";
-import PrivateRoute from "./components/pricateRoute";
+import FormBuilder from "./components/screens/formBuilder";
+import Final from "./components/screens/final";
 
 const App = () => {
   const location = useLocation();
@@ -26,7 +27,7 @@ const App = () => {
   }, [formData]);
 
   const timeout = {
-    enter: 600,
+    enter: 3000,
     exit: 0,
   };
   return (
@@ -41,11 +42,24 @@ const App = () => {
         >
           <div className="page-box">
             <Switch location={location}>
-              {Routes.map((props) => (
-                <PrivateRoute key={props.path} {...props} />
+              {formFields.map((field: any, index: number) => (
+                <Route
+                  path={`/${index}`}
+                  key={field.heading}
+                  exact
+                  render={(props) => (
+                    <FormBuilder
+                      {...props}
+                      {...field}
+                      nextRoute={index + 1}
+                      lastRoute={index + 1 === formFields.length}
+                    />
+                  )}
+                />
               ))}
+              <Route path={`/${formFields.length}`} exact component={Final} />
               <Route path="*">
-                <Redirect to="/start" />
+                <Redirect to="/0" />
               </Route>
             </Switch>
           </div>

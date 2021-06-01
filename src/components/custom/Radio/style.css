@@ -23,6 +23,7 @@
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s;
+  margin-right: 20px;
 }
 
 .radio-container .radio-button::before {
@@ -52,4 +53,9 @@
 .radio-container .radio-button:hover::after,
 .radio-container .radio-button:checked:after {
   border: 1px solid var(--primary-color);
+}
+
+.radio-group-container {
+  display: flex;
+  margin-bottom: 10px;
 }

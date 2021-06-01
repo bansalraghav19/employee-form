@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./style.css";
 
+// TODO chnage onChnage Interface
+
 interface Props {
   placeholder?: string;
-  name?: string;
+  name: string;
   value?: string;
   className?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: any;
   hasError?: boolean;
   errorMessage?: string;
   inputRef?: React.LegacyRef<HTMLInputElement>;
+  eRef?: any;
 }
 
 const Input: React.FC<Props> = ({
@@ -21,28 +24,37 @@ const Input: React.FC<Props> = ({
   hasError,
   errorMessage,
   inputRef,
+  eRef,
 }) => {
-  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange instanceof Function) {
-      onChange(event);
+      onChange(event?.target?.name, event?.target?.value, "input");
     }
   };
 
+  const handleRef = useCallback((node) => {
+    if (node) {
+      eRef.current[name] = node;
+    }
+  }, []);
+
   return (
     <>
-      <div className={`input-container ${className}`}>
+      <div className={`input-container ${className || ""}`}>
         <input
           className={`input ${hasError && "showError"}`}
-          ref={inputRef}
+          ref={handleRef}
           value={value}
+          name={name}
           onChange={handleChange}
+          autoComplete="off"
         />
         <span className={`underline ${hasError && "error-underline"}`}></span>
         <label className="input-label" htmlFor={name}>
           {name}
         </label>
       </div>
-      <div className="error-box">
+      <div className="error-box mb-20">
         <CSSTransition
           in={hasError || false}
           timeout={300}
@@ -56,4 +68,4 @@ const Input: React.FC<Props> = ({
   );
 };
 
-export default Input;
+export default React.memo(Input);

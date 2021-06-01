@@ -10,9 +10,11 @@ export interface dataInterface {
   istermsChecked?: boolean;
 }
 
+// export type genericDataInterface = <T extends dataInterface>;
+
 export interface getFormDataI {
   type: typeof GET_FORM_DATA;
   payload: {
-    data: dataInterface;
+    data: any;
   };
 }
