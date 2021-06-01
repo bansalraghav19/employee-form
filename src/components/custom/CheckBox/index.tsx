@@ -4,25 +4,18 @@ import "./style.css";
 
 interface Props {
   value?: string;
-  name?: string;
+  name: string;
   checked?: boolean;
   onChange?: (fieldName: string, id: string) => void;
   children?: JSX.Element | string;
   values?: string;
   hasError?: boolean;
   errorMessage?: string;
+  formValues?: any;
 }
 
-const CheckBox: React.FC<Props> = ({
-  value,
-  name,
-  onChange,
-  checked,
-  children,
-  values,
-  hasError,
-  errorMessage,
-}) => {
+const CheckBox: React.FC<Props> = ({ name, values, formValues }) => {
+  const { value, onChange, hasError, errorMessage } = formValues[name] || {};
   const handleChange = () => {
     if (onChange instanceof Function) {
       onChange(name as string, value ? "" : (values as string));

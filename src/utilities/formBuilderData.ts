@@ -22,6 +22,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
+    stateDetails: ["First Name"],
   },
   {
     heading: "And your last name?",
@@ -37,6 +38,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
+    stateDetails: ["Last Name"],
   },
   {
     heading: "What is your Gender?",
@@ -53,6 +55,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
+    stateDetails: ["gender"],
   },
   {
     heading: "What's your Martial status?",
@@ -61,6 +64,14 @@ export const formFields: any = [
         name: "martial status",
         type: "radio_group",
         values: ["Married", "Unmarried"],
+        childNodes: [
+          {
+            name: "Spouse Name",
+            type: "input",
+            required: true,
+            whitespace: true,
+          },
+        ],
         required: true,
         whitespace: true,
       },
@@ -69,6 +80,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
+    stateDetails: ["martial status", "Spouse Name"],
   },
   {
     heading: "Tell us a bit about yourself",
@@ -82,6 +94,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
+    stateDetails: ["Other Details"],
   },
   {
     heading: "",
@@ -96,5 +109,6 @@ export const formFields: any = [
         name: "Submit",
       },
     ],
+    stateDetails: ["Terms and Conditions"],
   },
 ];

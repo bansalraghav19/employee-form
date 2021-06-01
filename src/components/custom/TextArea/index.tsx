@@ -3,21 +3,14 @@ import "./style.css";
 
 interface Props {
   placeholder?: string;
-  name?: string;
-  value?: string;
+  name: string;
   className?: string;
-  onChange?: any;
-  textAreaRef?: React.LegacyRef<HTMLTextAreaElement>;
   eRef?: any;
+  formValues?: any;
 }
 
-const TextArea: React.FC<Props> = ({
-  value,
-  onChange,
-  name,
-  className,
-  eRef,
-}) => {
+const TextArea: React.FC<Props> = ({ formValues, name, className, eRef }) => {
+  const { onChange, value } = formValues[name] || {};
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange instanceof Function) {
       onChange(event.target.name, event.target.value, "text_area");

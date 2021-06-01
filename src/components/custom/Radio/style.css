@@ -59,3 +59,36 @@
   display: flex;
   margin-bottom: 10px;
 }
+
+.alert-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.alert-enter ~ button,
+.alert-exit-active ~ button,
+.alert-exit-done ~ button {
+  margin-top: 0px;
+}
+
+.alert-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 500ms, transform 500ms;
+}
+
+.alert-exit {
+  opacity: 1;
+}
+
+.alert-exit ~ button,
+.alert-enter-active ~ button,
+.alert-enter-done ~ button {
+  margin-top: 20px;
+}
+
+.alert-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 500ms, transform 500ms;
+}

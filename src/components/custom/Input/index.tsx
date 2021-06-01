@@ -14,18 +14,11 @@ interface Props {
   errorMessage?: string;
   inputRef?: React.LegacyRef<HTMLInputElement>;
   eRef?: any;
+  formValues?: any;
 }
 
-const Input: React.FC<Props> = ({
-  value,
-  onChange,
-  name,
-  className,
-  hasError,
-  errorMessage,
-  inputRef,
-  eRef,
-}) => {
+const Input: React.FC<Props> = ({ name, className, eRef, formValues }) => {
+  const { value, hasError, errorMessage, onChange } = formValues?.[name] || {};
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange instanceof Function) {
       onChange(event?.target?.name, event?.target?.value, "input");

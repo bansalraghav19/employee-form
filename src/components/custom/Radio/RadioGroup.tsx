@@ -1,36 +1,63 @@
-import React from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
+import Input from "../Input";
 import "./index";
 import Radio from "./index";
 
 const RadioGroup: React.FC<any> = (props) => {
-  const handleChange = (id: string) => {
-    if (props.onChange instanceof Function) {
-      props.onChange(props.name, id, "radio_group");
+  const { value, hasError, errorMessage, onChange } =
+    props.formValues[props.name] || {};
+  const [curRadioId, setCurRadioId] = useState<number>(-1);
+  const [showChildNode, setShowChildNode] = useState<boolean>(false);
+
+  useEffect(() => {
+    const activeRadioIndex = (props?.values as string[]).indexOf(value);
+    setCurRadioId(activeRadioIndex);
+    setShowChildNode(
+      activeRadioIndex !== -1 && props?.childNodes?.[activeRadioIndex]
+    );
+  }, [value]);
+
+  const handleChange = (id: string, index: number) => {
+    if (onChange instanceof Function) {
+      onChange(props.name, id, "radio_group");
+      setCurRadioId(index);
     }
   };
   return (
     <>
       <div className="radio-group-container">
-        {props.values?.map((value: string) => (
+        {props.values?.map((cur: string, idx: number) => (
           <Radio
-            checked={value === props.value}
-            onChange={handleChange}
+            checked={cur === value}
+            onChange={(id: string) => handleChange(id, idx)}
             name={props.name}
-            value={value}
+            value={cur}
           />
         ))}
       </div>
-      <div className="error-box mb-30">
+      <div className="error-box mb-10">
         <CSSTransition
-          in={props.hasError || false}
+          in={hasError || false}
           timeout={300}
           classNames="fade-in"
           unmountOnExit
         >
-          <div className="error">{props.errorMessage}</div>
+          <div className="error">{errorMessage}</div>
         </CSSTransition>
       </div>
+      <CSSTransition
+        in={showChildNode}
+        timeout={600}
+        classNames="alert"
+        unmountOnExit
+      >
+        <Input
+          eRef={props.eRef}
+          {...(props?.childNodes?.[curRadioId] || {})}
+          formValues={props.formValues}
+        />
+      </CSSTransition>
     </>
   );
 };

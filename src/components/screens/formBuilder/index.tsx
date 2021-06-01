@@ -18,33 +18,36 @@ import { getFormData } from "../../../redux/action";
 interface PropsI {
   heading: string;
   fields: any;
+  stateDetails?: string[];
   nextRoute: number | string;
   lastRoute: boolean;
 }
 
-const FormBuilder: React.FC<PropsI> = ({ heading, fields, nextRoute }) => {
+const FormBuilder: React.FC<PropsI> = ({
+  heading,
+  stateDetails,
+  fields,
+  nextRoute,
+}) => {
   const selector = useSelector((state: StoreInterface) => state.formData.data);
   const dispatch = useDispatch();
-  const [formValues, setFormValues] = useState<any>({});
+  const [formValues, setFormValues] = useState<any>(stateDetails);
   const history = useHistory();
   const eRef = useRef<any>({});
 
   useEffect(() => {
-    const formState = fields?.reduce((acc: object, field: any) => {
-      if (field.type !== "button") {
-        eRef?.current?.[field.name]?.focus();
-        return {
-          ...acc,
-          [field.name]: {
-            value: "",
-            hasError: false,
-            errorMessage: "",
-            onChange,
-          },
-        };
-      } else return acc;
+    const formState = stateDetails?.reduce((acc: object, field: any) => {
+      eRef?.current?.[field]?.focus();
+      return {
+        ...acc,
+        [field]: {
+          value: "",
+          hasError: false,
+          errorMessage: "",
+          onChange,
+        },
+      };
     }, {});
-    console.log(formState);
     setFormValues(formState);
   }, []);
 
@@ -129,6 +132,7 @@ const FormBuilder: React.FC<PropsI> = ({ heading, fields, nextRoute }) => {
       })
     );
     if (hasError) {
+      console.log(hasError);
       setFormValues(newFormData);
     } else {
       const localStorageValues: any = {};
@@ -153,31 +157,19 @@ const FormBuilder: React.FC<PropsI> = ({ heading, fields, nextRoute }) => {
                 className="mb-20"
                 eRef={eRef}
                 {...field}
-                {...(formValues?.[field.name] || {})}
+                formValues={formValues}
               />
             );
           case "input":
-            return (
-              <Input
-                eRef={eRef}
-                {...field}
-                {...(formValues?.[field.name] || {})}
-              />
-            );
+            return <Input eRef={eRef} {...field} formValues={formValues} />;
           case "button":
-            return (
-              <Button {...field} {...(formValues?.[field.name] || {})}>
-                {field.name}
-              </Button>
-            );
+            return <Button {...field}>{field.name}</Button>;
           case "radio_group":
             return (
-              <RadioGroup {...field} {...(formValues?.[field.name] || {})} />
+              <RadioGroup eRef={eRef} {...field} formValues={formValues} />
             );
           case "checkbox":
-            return (
-              <CheckBox {...(formValues?.[field.name] || {})} {...field} />
-            );
+            return <CheckBox {...field} formValues={formValues} />;
           default:
             return null;
         }
