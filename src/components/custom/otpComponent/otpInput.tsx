@@ -25,6 +25,7 @@ const SingleOTPInputComponent: React.FC<SingleOTPInputProps> = (props) => {
   return (
     <input
       className="input-box"
+      type="password"
       maxLength={1}
       ref={inputRef}
       {...rest}

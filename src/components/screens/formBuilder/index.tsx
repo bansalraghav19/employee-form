@@ -18,6 +18,10 @@ interface PropsI {
   stateDetails: {
     name: string;
     type: string;
+    isChecked?: string;
+    parent?: string;
+    inputType?: string;
+    hideFromStorage: boolean;
   }[];
   nextRoute: number | string;
   lastRoute: boolean;
@@ -37,17 +41,22 @@ const FormBuilder: React.FC<PropsI> = ({
 
   useEffect(() => {
     const formState = stateDetails?.reduce(
-      (acc: object, { name, type }: any) => {
+      (acc: object, { name, type, hideFromStorage }: any) => {
         eRef?.current?.[name]?.focus();
-        return {
-          ...acc,
-          [name]: {
-            value: "",
-            hasError: false,
-            errorMessage: "",
-            onChange,
-          },
-        };
+        if (type === "BUTTON") {
+          return acc;
+        } else {
+          return {
+            ...acc,
+            [name]: {
+              value: "",
+              hasError: false,
+              errorMessage: "",
+              onChange,
+              hideFromStorage,
+            },
+          };
+        }
       },
       {}
     );
@@ -87,20 +96,24 @@ const FormBuilder: React.FC<PropsI> = ({
     let hasError = false;
     await Promise.all(
       stateDetails?.map(async (field: any) => {
-        console.log(field?.name);
-        const validateData = await validator(
-          formValues?.[field?.name]?.value || "",
-          field.name,
-          field.type
-        );
-        hasError = hasError || validateData.hasError;
-        if (validateData.hasError) {
-          eRef?.current[field.name]?.focus();
+        if (
+          !field?.parent &&
+          formValues?.[field?.parent]?.value === field?.isChecked
+        ) {
+          const validateData = await validator(
+            formValues?.[field?.name]?.value || "",
+            field.name,
+            field?.inputType || field?.type
+          );
+          hasError = hasError || validateData.hasError;
+          if (validateData.hasError) {
+            eRef?.current[field.name]?.focus();
+          }
+          newFormData[field.name] = {
+            ...newFormData[field.name],
+            ...validateData,
+          };
         }
-        newFormData[field.name] = {
-          ...newFormData[field.name],
-          ...validateData,
-        };
       })
     );
     if (hasError) {
@@ -108,17 +121,16 @@ const FormBuilder: React.FC<PropsI> = ({
     } else {
       const localStorageValues: any = {};
       Object?.keys(formValues || {})?.forEach((key) => {
-        const { value } = formValues[key];
-        localStorageValues[key] = value;
+        const { value, hideFromStorage } = formValues[key];
+        if (!hideFromStorage) localStorageValues[key] = value;
       });
-      console.log(localStorageValues);
       dispatch(getFormData({ ...selector, ...localStorageValues }));
       history.push(`/${nextRoute}`, { redirect: true });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="page form-container">
+    <form onSubmit={handleSubmit} className="page form-container" noValidate>
       <h2 className="form-heading">{heading}</h2>
       {fields?.map((field: any) => {
         switch (field.type) {
@@ -134,7 +146,11 @@ const FormBuilder: React.FC<PropsI> = ({
           case "INPUT":
             return <Input eRef={eRef} {...field} formValues={formValues} />;
           case "BUTTON":
-            return <Button {...field}>{field.name}</Button>;
+            return (
+              <Button eRef={eRef} {...field}>
+                {field.name}
+              </Button>
+            );
           case "RADIO_GROUP":
             return (
               <RadioGroup eRef={eRef} {...field} formValues={formValues} />

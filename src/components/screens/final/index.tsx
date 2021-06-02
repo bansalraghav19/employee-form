@@ -20,7 +20,9 @@ const Final = () => {
         style={{ position: "relative", fontSize: "1rem" }}
       >{`Thank you for taking the time to fill the form, ${formData?.["First Name"]} ${formData?.["Last Name"]}.
   `}</h2>
-      <Button className="mt-30">Reset Form</Button>
+      <Button name="final" className="mt-30">
+        Reset Form
+      </Button>
     </form>
   );
 };

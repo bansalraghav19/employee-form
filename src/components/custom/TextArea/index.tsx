@@ -28,11 +28,12 @@ const TextArea: React.FC<Props> = ({ formValues, name, className, eRef }) => {
     <div className={`textarea-container ${className}`}>
       <textarea
         className="textarea"
-        value={value}
+        defaultValue={value}
         name={name}
         id={name}
         onChange={handleChange}
         ref={handleRef}
+        required
       ></textarea>
       <span className="underline"></span>
       <label className="textarea-label" htmlFor={name}>

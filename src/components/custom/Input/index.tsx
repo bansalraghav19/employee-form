@@ -1,4 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, {
+  MutableRefObject,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { CSSTransition } from "react-transition-group";
 import "./style.css";
 
@@ -27,17 +33,40 @@ const Input: React.FC<Props> = ({
 }) => {
   const { value, hasError, errorMessage, onChange } = formValues?.[name] || {};
   const [curInputType, setCurInputType] = useState(inputType);
+  let inputRef: HTMLInputElement | null = null;
+  const selectionStart = useRef<number | null>(-1);
+
+  useLayoutEffect(() => {
+    if (value) {
+      try {
+        if (selectionStart?.current === -1)
+          selectionStart.current = value.length;
+        (inputRef as HTMLInputElement).setSelectionRange(
+          selectionStart?.current,
+          selectionStart?.current
+        );
+      } catch (error) {}
+    }
+  }, [value]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
     if (onChange instanceof Function) {
-      onChange(event?.target?.name, event?.target?.value, "INPUT");
+      selectionStart.current = event.target.selectionStart;
+      onChange(event?.target?.name, event?.target?.value, inputType);
     }
   };
 
-  const handleRef = useCallback((node) => {
-    if (node) {
-      eRef.current[name] = node;
-    }
-  }, []);
+  const handleRef = useCallback(
+    (node: HTMLInputElement) => {
+      if (node) {
+        eRef.current[name] = node;
+        inputRef = node;
+        node?.focus();
+      }
+    },
+    [value]
+  );
 
   const togglePasswordInput = () =>
     setCurInputType(curInputType === "text" ? "password" : "text");

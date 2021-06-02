@@ -7,7 +7,7 @@ export const formFields: any = [
         name: "Start",
       },
     ],
-    stateDetails: [],
+    stateDetails: [{ name: "Start", type: "BUTTON" }],
   },
   {
     heading: "Hi there, what's your first name?",
@@ -24,7 +24,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: [{ name: "First Name", type: "INPUT" }],
+    stateDetails: [{ name: "First Name", type: "INPUT", inputType: "text" }],
   },
   {
     heading: "And your last name?",
@@ -41,7 +41,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: [{ name: "Last Name", type: "INPUT" }],
+    stateDetails: [{ name: "Last Name", type: "INPUT", inputType: "text" }],
   },
   {
     heading: "What is your Gender?",
@@ -71,6 +71,7 @@ export const formFields: any = [
             type: "INPUT",
             required: true,
             whitespace: true,
+            inputType: "text",
           },
         ],
       },
@@ -81,7 +82,13 @@ export const formFields: any = [
     ],
     stateDetails: [
       { name: "martial status", type: "RADIO_GROUP" },
-      { name: "Spouse Name", type: "INPUT" },
+      {
+        name: "Spouse Name",
+        type: "INPUT",
+        ifChecked: "Married",
+        parent: "martial status",
+        inputType: "text",
+      },
     ],
   },
   {
@@ -92,14 +99,14 @@ export const formFields: any = [
         type: "INPUT",
         required: true,
         whitespace: true,
-        inputType: "email",
+        inputType: "text",
       },
       {
         type: "BUTTON",
         name: "Next",
       },
     ],
-    stateDetails: [{ name: "Email Adress", type: "INPUT" }],
+    stateDetails: [{ name: "Email Adress", type: "INPUT", inputType: "email" }],
   },
   {
     heading: "Enter the OTP Recieved?",
@@ -116,7 +123,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: ["Otp"],
+    stateDetails: [{ name: "Otp", type: "OTP", hideFromStorage: true }],
   },
   {
     heading: "Enter a Password?",
@@ -133,7 +140,14 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: [{ name: "Password", type: "INPUT" }],
+    stateDetails: [
+      {
+        name: "Password",
+        type: "INPUT",
+        inputType: "password",
+        hideFromStorage: true,
+      },
+    ],
   },
   {
     heading: "Tell us a bit about yourself",

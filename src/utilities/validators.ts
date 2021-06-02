@@ -1,30 +1,19 @@
-export const emptyCheck = async (
+const validateText = async (
   value: string,
   fieldName: string
 ): Promise<string> => {
   return new Promise<string>((resolve, reject) => {
-    if (value.trim().length) {
-      resolve("OK");
-    } else {
+    if (!value?.trim?.()?.length) {
       reject(`Please enter the ${fieldName}`);
     }
-  });
-};
-
-export const whiteSpaces = async (
-  value: string,
-  fieldName: string
-): Promise<string> => {
-  return new Promise<string>((resolve, reject) => {
-    if (value.trim().length === value.length) {
-      resolve("OK");
-    } else {
+    if (value?.length !== value?.trim?.()?.length) {
       reject(`Please remove whitespaces from ${fieldName}`);
     }
+    resolve("OK");
   });
 };
 
-export const validateRadio = async (
+const validateRadio = async (
   value: string,
   fieldName: string
 ): Promise<string> => {
@@ -37,7 +26,7 @@ export const validateRadio = async (
   });
 };
 
-export const validateOtp = async (
+const validateOtp = async (
   value: string,
   fieldName: string
 ): Promise<string> => {
@@ -47,6 +36,23 @@ export const validateOtp = async (
     } else {
       reject(`Please Enter the Valid ${fieldName}`);
     }
+  });
+};
+
+const validateEmail = async (
+  value: string,
+  fieldName: string
+): Promise<string> => {
+  console.log(value);
+  return new Promise<string>((resolve, reject) => {
+    if (!value?.trim?.()?.length) {
+      reject(`Please enter the ${fieldName}`);
+    }
+    const regex = /^\w+([\.-]?\w+)*@groww\.in$/;
+    if (!value?.match(regex)) {
+      reject(`Please enter a valid @groww.in email address`);
+    }
+    resolve("OK");
   });
 };
 
@@ -61,9 +67,8 @@ export const validator = async (
   };
   try {
     switch (fieldType) {
-      case "INPUT":
-        await emptyCheck(value, fieldName);
-        await whiteSpaces(value, fieldName);
+      case "text":
+        await validateText(value, fieldName);
         break;
       case "RADIO_GROUP":
         await validateRadio(value, fieldName);
@@ -73,6 +78,12 @@ export const validator = async (
         break;
       case "OTP":
         await validateOtp(value, fieldName);
+        break;
+      case "email":
+        await validateEmail(value, fieldName);
+        break;
+      case "password":
+        await validateText(value, fieldName);
         break;
       default:
         break;
