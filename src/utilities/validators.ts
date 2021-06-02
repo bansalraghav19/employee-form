@@ -37,6 +37,19 @@ export const validateRadio = async (
   });
 };
 
+export const validateOtp = async (
+  value: string,
+  fieldName: string
+): Promise<string> => {
+  return new Promise<string>((resolve, reject) => {
+    if (value.trim().length === 6) {
+      resolve("OK");
+    } else {
+      reject(`Please Enter the Valid ${fieldName}`);
+    }
+  });
+};
+
 export const validator = async (
   value: string,
   fieldName: string,
@@ -46,7 +59,6 @@ export const validator = async (
     hasError: false,
     errorMessage: "",
   };
-  console.log(value);
   try {
     switch (fieldType) {
       case "INPUT":
@@ -58,6 +70,9 @@ export const validator = async (
         break;
       case "CHECKBOX":
         await validateRadio(value, fieldName);
+        break;
+      case "OTP":
+        await validateOtp(value, fieldName);
         break;
       default:
         break;

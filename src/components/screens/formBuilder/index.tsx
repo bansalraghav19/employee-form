@@ -5,6 +5,7 @@ import CheckBox from "../../custom/CheckBox";
 import Input from "../../custom/Input";
 import TextArea from "../../custom/TextArea";
 import RadioGroup from "../../custom/Radio/RadioGroup";
+import OtpComponent from "../../custom/otpComponent";
 import { validator } from "../../../utilities/validators";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +15,10 @@ import { getFormData } from "../../../redux/action";
 interface PropsI {
   heading: string;
   fields: any;
-  stateDetails?: string[];
+  stateDetails: {
+    name: string;
+    type: string;
+  }[];
   nextRoute: number | string;
   lastRoute: boolean;
 }
@@ -32,18 +36,21 @@ const FormBuilder: React.FC<PropsI> = ({
   const eRef = useRef<any>({});
 
   useEffect(() => {
-    const formState = stateDetails?.reduce((acc: object, field: any) => {
-      eRef?.current?.[field]?.focus();
-      return {
-        ...acc,
-        [field]: {
-          value: "",
-          hasError: false,
-          errorMessage: "",
-          onChange,
-        },
-      };
-    }, {});
+    const formState = stateDetails?.reduce(
+      (acc: object, { name, type }: any) => {
+        eRef?.current?.[name]?.focus();
+        return {
+          ...acc,
+          [name]: {
+            value: "",
+            hasError: false,
+            errorMessage: "",
+            onChange,
+          },
+        };
+      },
+      {}
+    );
     setFormValues(formState);
   }, []);
 
@@ -75,12 +82,14 @@ const FormBuilder: React.FC<PropsI> = ({
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const newFormData = { ...formValues };
     let hasError = false;
     await Promise.all(
-      fields.map(async (field: any) => {
+      stateDetails?.map(async (field: any) => {
+        console.log(field?.name);
         const validateData = await validator(
-          formValues?.[field?.name]?.value,
+          formValues?.[field?.name]?.value || "",
           field.name,
           field.type
         );
@@ -95,7 +104,6 @@ const FormBuilder: React.FC<PropsI> = ({
       })
     );
     if (hasError) {
-      console.log(hasError);
       setFormValues(newFormData);
     } else {
       const localStorageValues: any = {};
@@ -133,6 +141,8 @@ const FormBuilder: React.FC<PropsI> = ({
             );
           case "CHECKBOX":
             return <CheckBox {...field} formValues={formValues} />;
+          case "OTP":
+            return <OtpComponent {...field} formValues={formValues} />;
           default:
             return null;
         }

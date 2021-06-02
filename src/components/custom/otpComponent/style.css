@@ -1,0 +1,27 @@
+.otp-container {
+  display: flex;
+}
+
+.otp-container input {
+  border: none;
+  border-bottom: 2px solid grey;
+  width: 50px;
+  height: 30px;
+  font-weight: 900;
+  font-size: 0.6rem;
+  background: transparent;
+  text-align: center;
+  margin-right: 10px;
+  outline: none;
+  margin-bottom: 30px;
+  transition: all 0.5s;
+}
+
+.otp-container.error-line input {
+  border-bottom-color: red;
+}
+
+.otp-container input:focus,
+.otp-container input:valid {
+  border-bottom-color: var(--primary-color);
+}

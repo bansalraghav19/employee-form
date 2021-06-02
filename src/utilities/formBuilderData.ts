@@ -7,6 +7,7 @@ export const formFields: any = [
         name: "Start",
       },
     ],
+    stateDetails: [],
   },
   {
     heading: "Hi there, what's your first name?",
@@ -23,7 +24,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: ["First Name"],
+    stateDetails: [{ name: "First Name", type: "INPUT" }],
   },
   {
     heading: "And your last name?",
@@ -40,7 +41,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: ["Last Name"],
+    stateDetails: [{ name: "Last Name", type: "INPUT" }],
   },
   {
     heading: "What is your Gender?",
@@ -55,7 +56,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: ["gender"],
+    stateDetails: [{ name: "gender", type: "RADIO_GROUP" }],
   },
   {
     heading: "What's your Martial status?",
@@ -78,7 +79,10 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: ["martial status", "Spouse Name"],
+    stateDetails: [
+      { name: "martial status", type: "RADIO_GROUP" },
+      { name: "Spouse Name", type: "INPUT" },
+    ],
   },
   {
     heading: "What's your Email Address?",
@@ -95,7 +99,24 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: ["Email Adress"],
+    stateDetails: [{ name: "Email Adress", type: "INPUT" }],
+  },
+  {
+    heading: "Enter the OTP Recieved?",
+    fields: [
+      {
+        name: "Otp",
+        type: "OTP",
+        length: 6,
+        autoFocus: true,
+        isNumberInput: true,
+      },
+      {
+        type: "BUTTON",
+        name: "Next",
+      },
+    ],
+    stateDetails: ["Otp"],
   },
   {
     heading: "Enter a Password?",
@@ -112,7 +133,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: ["Password"],
+    stateDetails: [{ name: "Password", type: "INPUT" }],
   },
   {
     heading: "Tell us a bit about yourself",
@@ -126,7 +147,7 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: ["Other Details"],
+    stateDetails: [{ name: "Other Details", type: "TEXTAREA" }],
   },
   {
     heading: "",
@@ -141,6 +162,6 @@ export const formFields: any = [
         name: "Submit",
       },
     ],
-    stateDetails: ["Terms and Conditions"],
+    stateDetails: [{ name: "Terms and Conditions", type: "CHECKBOX" }],
   },
 ];
