@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./style.css";
 
 interface Props {
@@ -7,6 +7,8 @@ interface Props {
   checked?: boolean;
   onChange?: (id: string) => void;
   className?: string;
+  focus?: boolean;
+  tabIndex?: number;
 }
 
 const Radio: React.FC<Props> = ({
@@ -15,7 +17,10 @@ const Radio: React.FC<Props> = ({
   onChange,
   className,
   checked,
+  focus,
+  tabIndex,
 }) => {
+  const radioRef = useRef<HTMLInputElement>(null);
   const handleChange = () => {
     if (typeof onChange === "function") {
       onChange(value as string);
@@ -33,15 +38,17 @@ const Radio: React.FC<Props> = ({
         {value}
       </label>
       <input
+        tabIndex={-1}
         type="radio"
         id={value}
         name={name}
+        ref={radioRef}
         value={value}
         className="radio-button"
         onChange={handleChange}
         checked={checked || false}
-        onKeyPress={handleKeyBoard}
       />
+      <span tabIndex={0} onKeyPress={handleKeyBoard} className="tabber"></span>
     </div>
   );
 };
