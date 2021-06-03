@@ -48,9 +48,10 @@ const validateEmail = async (
     if (!value?.trim?.()?.length) {
       reject(`Please enter the ${fieldName}`);
     }
-    const regex = /^\w+([\.-]?\w+)*@groww\.in$/;
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!value?.match(regex)) {
-      reject(`Please enter a valid @groww.in email address`);
+      reject(`Please enter a valid email address`);
     }
     resolve("OK");
   });
