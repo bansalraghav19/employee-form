@@ -47,16 +47,16 @@ const CheckBox: React.FC<Props> = ({ name, values, formValues }) => {
           {values}
         </label>
       </div>
-      <div className="error-box mb-30">
-        <CSSTransition
-          in={hasError || false}
-          timeout={300}
-          classNames="fade-in"
-          unmountOnExit
-        >
+      <CSSTransition
+        in={hasError || false}
+        timeout={500}
+        classNames="fade-in"
+        unmountOnExit
+      >
+        <div className="error-box">
           <div className="error">{errorMessage}</div>
-        </CSSTransition>
-      </div>
+        </div>
+      </CSSTransition>
     </>
   );
 };

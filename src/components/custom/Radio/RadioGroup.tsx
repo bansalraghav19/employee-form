@@ -36,19 +36,19 @@ const RadioGroup: React.FC<any> = (props) => {
           />
         ))}
       </div>
-      <div className="error-box mb-20">
-        <CSSTransition
-          in={hasError || false}
-          timeout={300}
-          classNames="fade-in"
-          unmountOnExit
-        >
+      <CSSTransition
+        in={hasError || false}
+        timeout={500}
+        classNames="fade-in"
+        unmountOnExit
+      >
+        <div className="error-box">
           <div className="error">{errorMessage}</div>
-        </CSSTransition>
-      </div>
+        </div>
+      </CSSTransition>
       <CSSTransition
         in={showChildNode}
-        timeout={600}
+        timeout={800}
         classNames="alert"
         unmountOnExit
       >

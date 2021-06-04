@@ -25,32 +25,18 @@ const Input: React.FC<Props> = ({
 }) => {
   const { value, hasError, errorMessage, onChange } = formValues?.[name] || {};
   const [curInputType, setCurInputType] = useState(() => inputType);
-  let inputRef = useRef<any>();
-  const [selection, setSelection] =
-    useState<[number | null, number | null] | null>(null);
 
-  useLayoutEffect(() => {
-    if (selection && inputRef.current) {
-      console.log(selection);
-      [inputRef.current.selectionStart, inputRef.current.selectionEnd] =
-        selection;
-    }
-  }, [value, selection]);
+  console.log(value);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange instanceof Function) {
       onChange(event?.target?.name, event?.target?.value, inputType);
-      setSelection([
-        event?.target?.selectionStart,
-        event?.target?.selectionEnd,
-      ]);
     }
   };
 
   const handleRef = useCallback((node: HTMLInputElement) => {
     if (node) {
       eRef.current[name] = node;
-      inputRef.current = node;
       node?.focus();
     }
   }, []);
@@ -81,16 +67,16 @@ const Input: React.FC<Props> = ({
           ></div>
         )}
       </div>
-      <div className="error-box mb-20">
-        <CSSTransition
-          in={hasError || false}
-          timeout={300}
-          classNames="fade-in"
-          unmountOnExit
-        >
+      <CSSTransition
+        in={hasError || false}
+        timeout={600}
+        classNames="fade-in"
+        unmountOnExit
+      >
+        <div className="error-box">
           <div className="error">{errorMessage}</div>
-        </CSSTransition>
-      </div>
+        </div>
+      </CSSTransition>
     </>
   );
 };

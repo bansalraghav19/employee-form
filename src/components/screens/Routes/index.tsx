@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { formFields } from "../../../utilities/formBuilderData";
@@ -14,8 +14,8 @@ interface Props {
 
 const Routes: React.FC<Props> = ({ localStorageData }) => {
   const location = useLocation();
-  const [initialRender, setInitialRender] = useState(false);
   const previousLocation = usePrevious(location.pathname);
+  const [intialAnimate, SetIntialAnimate] = useState(false);
 
   const timeout = {
     enter: 600,
@@ -24,8 +24,8 @@ const Routes: React.FC<Props> = ({ localStorageData }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      setInitialRender(true);
-    }, 300);
+      SetIntialAnimate((prevState) => !prevState);
+    }, 1000);
   }, []);
 
   const getAnimationType = useMemo(() => {
@@ -39,7 +39,7 @@ const Routes: React.FC<Props> = ({ localStorageData }) => {
       previousStepNumber = parseInt(previousLocation?.split?.("/")[1]);
     }
 
-    return curStepNumber - previousStepNumber >= 0;
+    return curStepNumber - previousStepNumber >= 0 ? "right" : "left";
   }, [location?.pathname, previousLocation]);
 
   return (
@@ -53,9 +53,9 @@ const Routes: React.FC<Props> = ({ localStorageData }) => {
           mountOnEnter={false}
         >
           <div
-            className={`page-box ${initialRender ? "down" : ""} ${
-              getAnimationType ? "right" : "left"
-            }`}
+            className={`page-box ${
+              intialAnimate ? "" : "down"
+            } ${getAnimationType}`}
           >
             <Switch location={location}>
               {formFields.map((field: any, index: number) => (

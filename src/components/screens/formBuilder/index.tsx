@@ -77,8 +77,8 @@ const FormBuilder: React.FC<PropsI> = ({
   }, [selector]);
 
   const onChange = useCallback(
-    async (fieldName: string, value: string, fieldType: string) => {
-      const validatorData = await validator(value, fieldName, fieldType);
+    (fieldName: string, value: string, fieldType: string) => {
+      const validatorData = validator(value, fieldName, fieldType);
       setFormValues((prevState: any) => {
         const values = prevState[fieldName];
         return {
@@ -90,33 +90,31 @@ const FormBuilder: React.FC<PropsI> = ({
     []
   );
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const newFormData = { ...formValues };
     let hasError = false;
-    await Promise.all(
-      stateDetails?.map(async (field: any) => {
-        if (
-          !field?.parent ||
-          formValues?.[field?.parent]?.value === field?.ifChecked
-        ) {
-          const validateData = await validator(
-            formValues?.[field?.name]?.value || "",
-            field.name,
-            field?.inputType || field?.type
-          );
-          hasError = hasError || validateData.hasError;
-          if (validateData.hasError) {
-            eRef?.current[field.name]?.focus();
-          }
-          newFormData[field.name] = {
-            ...newFormData[field.name],
-            ...validateData,
-          };
+    stateDetails?.map((field: any) => {
+      if (
+        !field?.parent ||
+        formValues?.[field?.parent]?.value === field?.ifChecked
+      ) {
+        const validateData: any = validator(
+          formValues?.[field?.name]?.value || "",
+          field.name,
+          field?.inputType || field?.type
+        );
+        hasError = hasError || validateData.hasError;
+        if (validateData.hasError) {
+          eRef?.current[field.name]?.focus();
         }
-      })
-    );
+        newFormData[field.name] = {
+          ...newFormData[field.name],
+          ...validateData,
+        };
+      }
+    });
     if (hasError) {
       setFormValues(newFormData);
     } else {
@@ -136,7 +134,12 @@ const FormBuilder: React.FC<PropsI> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="page form-container" noValidate>
+    <form
+      onSubmit={handleSubmit}
+      autoComplete="off"
+      className="page form-container"
+      noValidate
+    >
       <h2 className="form-heading">{heading}</h2>
       <DynammicField fields={fields} eRef={eRef} formValues={formValues} />
     </form>

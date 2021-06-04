@@ -77,12 +77,18 @@
 .alert-enter {
   opacity: 0;
   transform: translateY(-40px);
+  margin-top: 0px;
 }
 
-.alert-enter ~ button,
 .alert-exit-active ~ button,
 .alert-exit-done ~ button {
   margin-top: 0px;
+  transition: all 1s, transform 1s;
+}
+
+.alert-enter-done,
+.alert-enter-active {
+  margin-top: 20px;
 }
 
 .alert-enter-active {
@@ -93,6 +99,7 @@
 
 .alert-exit {
   opacity: 1;
+  margin-top: 0px;
 }
 
 .alert-exit ~ button,

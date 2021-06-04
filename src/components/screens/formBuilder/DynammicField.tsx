@@ -28,7 +28,7 @@ const DynammicField: React.FC<PropsI> = ({ fields, formValues, eRef }) => {
         return <Input eRef={eRef} {...field} formValues={formValues} />;
       case "BUTTON":
         return (
-          <Button eRef={eRef} {...field}>
+          <Button className="mt-20" eRef={eRef} {...field}>
             {field.name}
           </Button>
         );

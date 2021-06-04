@@ -1,62 +1,48 @@
-const validateText = async (
-  value: string,
-  fieldName: string
-): Promise<string> => {
-  return new Promise<string>((resolve, reject) => {
-    if (!value?.trim?.()?.length) {
-      reject(`Please enter the ${fieldName}`);
-    }
-    if (value?.length !== value?.trim?.()?.length) {
-      reject(`Please remove whitespaces from ${fieldName}`);
-    }
-    resolve("OK");
-  });
+const validateText = (value: string, fieldName: string) => {
+  if (!value?.trim?.()?.length) {
+    throw Object.assign({
+      error: `Please enter the ${fieldName}`,
+    });
+  }
+  if (value?.length !== value?.trim?.()?.length) {
+    throw Object.assign({
+      error: `Please remove whitespaces from ${fieldName}`,
+    });
+  }
 };
 
-const validateRadio = async (
-  value: string,
-  fieldName: string
-): Promise<string> => {
-  return new Promise<string>((resolve, reject) => {
-    if (value.trim().length) {
-      resolve("OK");
-    } else {
-      reject(`Please select the ${fieldName}`);
-    }
-  });
+const validateRadio = (value: string, fieldName: string) => {
+  if (!value.trim().length) {
+    throw Object.assign({
+      error: `Please select the ${fieldName}`,
+    });
+  }
 };
 
-const validateOtp = async (
-  value: string,
-  fieldName: string
-): Promise<string> => {
-  return new Promise<string>((resolve, reject) => {
-    if (value.trim().length === 6) {
-      resolve("OK");
-    } else {
-      reject(`Please Enter the Valid ${fieldName}`);
-    }
-  });
+const validateOtp = (value: string, fieldName: string) => {
+  if (value.trim().length !== 6) {
+    throw Object.assign({
+      error: `Please Enter the Valid ${fieldName}`,
+    });
+  }
 };
 
-const validateEmail = async (
-  value: string,
-  fieldName: string
-): Promise<string> => {
-  return new Promise<string>((resolve, reject) => {
-    if (!value?.trim?.()?.length) {
-      reject(`Please enter the ${fieldName}`);
-    }
-    const regex =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!value?.match(regex)) {
-      reject(`Please enter a valid email address`);
-    }
-    resolve("OK");
-  });
+const validateEmail = (value: string, fieldName: string) => {
+  if (!value?.trim?.()?.length) {
+    throw Object.assign({
+      error: `Please enter the ${fieldName}`,
+    });
+  }
+  const regex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!value?.match(regex)) {
+    throw Object.assign({
+      error: `Please enter a valid email address`,
+    });
+  }
 };
 
-export const validator = async (
+export const validator = (
   value: string,
   fieldName: string,
   fieldType: string
@@ -68,22 +54,22 @@ export const validator = async (
   try {
     switch (fieldType) {
       case "text":
-        await validateText(value, fieldName);
+        validateText(value, fieldName);
         break;
       case "RADIO_GROUP":
-        await validateRadio(value, fieldName);
+        validateRadio(value, fieldName);
         break;
       case "CHECKBOX":
-        await validateRadio(value, fieldName);
+        validateRadio(value, fieldName);
         break;
       case "OTP":
-        await validateOtp(value, fieldName);
+        validateOtp(value, fieldName);
         break;
       case "email":
-        await validateEmail(value, fieldName);
+        validateEmail(value, fieldName);
         break;
       case "password":
-        await validateText(value, fieldName);
+        validateText(value, fieldName);
         break;
       default:
         break;
@@ -91,7 +77,7 @@ export const validator = async (
   } catch (error) {
     dataPayload = {
       hasError: true,
-      errorMessage: error,
+      errorMessage: error.error,
     };
   }
   return dataPayload;
