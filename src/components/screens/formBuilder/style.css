@@ -10,4 +10,5 @@
 .form-container > .form-heading {
   position: relative;
   font-size: 1rem;
+  font-weight: 400;
 }

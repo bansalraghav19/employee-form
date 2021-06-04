@@ -100,7 +100,6 @@ const FormBuilder: React.FC<PropsI> = ({
     let hasError = false;
     await Promise.all(
       stateDetails?.map(async (field: any) => {
-        console.log(field);
         if (
           !field?.parent ||
           formValues?.[field?.parent]?.value === field?.ifChecked

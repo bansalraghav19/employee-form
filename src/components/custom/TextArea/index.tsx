@@ -20,7 +20,6 @@ const TextArea: React.FC<Props> = ({ formValues, name, className, eRef }) => {
   const handleRef = useCallback((node) => {
     if (node) {
       eRef.current[name as string] = node;
-      console.log(eRef);
     }
   }, []);
 

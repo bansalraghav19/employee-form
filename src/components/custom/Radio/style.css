@@ -9,7 +9,7 @@
 .radio-container .radio-label {
   position: relative;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 300;
   margin-right: 10px;
 }
 
@@ -76,7 +76,7 @@
 
 .alert-enter {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-40px);
 }
 
 .alert-enter ~ button,
@@ -88,7 +88,7 @@
 .alert-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: all 500ms, transform 500ms;
+  transition: all 1s, transform 1s;
 }
 
 .alert-exit {
@@ -103,6 +103,6 @@
 
 .alert-exit-active {
   opacity: 0;
-  transform: translateY(-20px);
-  transition: all 500ms, transform 500ms;
+  transform: translateY(-40px);
+  transition: all 1s, transform 1s;
 }

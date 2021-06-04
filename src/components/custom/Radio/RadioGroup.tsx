@@ -36,7 +36,7 @@ const RadioGroup: React.FC<any> = (props) => {
           />
         ))}
       </div>
-      <div className="error-box mb-10">
+      <div className="error-box mb-20">
         <CSSTransition
           in={hasError || false}
           timeout={300}

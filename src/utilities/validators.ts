@@ -43,7 +43,6 @@ const validateEmail = async (
   value: string,
   fieldName: string
 ): Promise<string> => {
-  console.log(value);
   return new Promise<string>((resolve, reject) => {
     if (!value?.trim?.()?.length) {
       reject(`Please enter the ${fieldName}`);

@@ -48,7 +48,6 @@ const Input: React.FC<Props> = ({
   }, [value]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
     if (onChange instanceof Function) {
       selectionStart.current = event.target.selectionStart;
       onChange(event?.target?.name, event?.target?.value, inputType);
