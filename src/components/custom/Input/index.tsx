@@ -25,39 +25,35 @@ const Input: React.FC<Props> = ({
 }) => {
   const { value, hasError, errorMessage, onChange } = formValues?.[name] || {};
   const [curInputType, setCurInputType] = useState(() => inputType);
-  let inputRef: HTMLInputElement | null = null;
-  const selectionStart = useRef<number | null>(-1);
+  let inputRef = useRef<any>();
+  const [selection, setSelection] =
+    useState<[number | null, number | null] | null>(null);
 
   useLayoutEffect(() => {
-    if (value) {
-      try {
-        if (selectionStart?.current === -1)
-          selectionStart.current = value.length;
-        (inputRef as HTMLInputElement).setSelectionRange(
-          selectionStart?.current,
-          selectionStart?.current
-        );
-      } catch (error) {}
+    if (selection && inputRef.current) {
+      console.log(selection);
+      [inputRef.current.selectionStart, inputRef.current.selectionEnd] =
+        selection;
     }
-  }, [value]);
+  }, [value, selection]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange instanceof Function) {
-      selectionStart.current = event.target.selectionStart;
       onChange(event?.target?.name, event?.target?.value, inputType);
+      setSelection([
+        event?.target?.selectionStart,
+        event?.target?.selectionEnd,
+      ]);
     }
   };
 
-  const handleRef = useCallback(
-    (node: HTMLInputElement) => {
-      if (node) {
-        eRef.current[name] = node;
-        inputRef = node;
-        node?.focus();
-      }
-    },
-    [value]
-  );
+  const handleRef = useCallback((node: HTMLInputElement) => {
+    if (node) {
+      eRef.current[name] = node;
+      inputRef.current = node;
+      node?.focus();
+    }
+  }, []);
 
   const togglePasswordInput = () =>
     setCurInputType(curInputType === "text" ? "password" : "text");

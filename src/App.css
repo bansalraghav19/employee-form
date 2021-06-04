@@ -54,7 +54,7 @@ h2 {
   flex: 0 35%;
   background: var(--primary-color);
   background-image: url("https://groww.in/logo-groww270.png");
-  filter: blur(1px);
+  backdrop-filter: blur(30px);
   background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;

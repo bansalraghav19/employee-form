@@ -18,25 +18,25 @@
   width: 20px;
   height: 20px;
   position: relative;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .checkbox-container .checkbox-box .checkbox-button {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 20px;
+  height: 20px;
   -webkit-appearance: none;
   appearance: none;
   -moz-appearance: none;
   border: none;
   margin: 0;
-  z-index: 2;
+  z-index: 30;
 }
 
-.checkbox-button .checkbox-box .pseudo-box {
+.checkbox-container .checkbox-box .pseudo-box {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 20px;
+  height: 20px;
   transition: all 0.3s;
   font-size: 16px;
   font-weight: bolder;
@@ -50,8 +50,8 @@
 .checkbox-container .checkbox-box .pseudo-box::after {
   content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 20px;
+  height: 20px;
   border-radius: 2px;
   border: 1px solid black;
 }

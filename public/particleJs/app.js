@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
     {
       particles: {
         number: {
-          value: 80,
+          value: 100,
           density: {
             enable: true,
             value_area: 800,
@@ -43,7 +43,7 @@ window.addEventListener("DOMContentLoaded", () => {
           },
         },
         opacity: {
-          value: 1,
+          value: 0.2,
           random: false,
           anim: {
             enable: false,
@@ -53,7 +53,7 @@ window.addEventListener("DOMContentLoaded", () => {
           },
         },
         size: {
-          value: 15,
+          value: 20,
           random: true,
           anim: {
             enable: false,
