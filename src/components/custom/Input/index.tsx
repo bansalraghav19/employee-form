@@ -8,8 +8,6 @@ import React, {
 import { CSSTransition } from "react-transition-group";
 import "./style.css";
 
-// TODO chnage onChnage Interface
-
 interface Props {
   placeholder?: string;
   name: string;

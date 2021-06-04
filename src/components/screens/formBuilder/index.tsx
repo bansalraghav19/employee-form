@@ -27,6 +27,10 @@ interface PropsI {
   lastRoute: boolean;
 }
 
+// type IndexOf<T extends [], S extends number[]> = S["length"] extends T["length"]
+//   ? S
+//   : IndexOf<T, [...S, S["length"]]>;
+
 const FormBuilder: React.FC<PropsI> = ({
   heading,
   stateDetails,
@@ -96,9 +100,10 @@ const FormBuilder: React.FC<PropsI> = ({
     let hasError = false;
     await Promise.all(
       stateDetails?.map(async (field: any) => {
+        console.log(field);
         if (
-          !field?.parent &&
-          formValues?.[field?.parent]?.value === field?.isChecked
+          !field?.parent ||
+          formValues?.[field?.parent]?.value === field?.ifChecked
         ) {
           const validateData = await validator(
             formValues?.[field?.name]?.value || "",
