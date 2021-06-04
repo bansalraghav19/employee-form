@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { formFields } from "../../../utilities/formBuilderData";
@@ -14,6 +14,7 @@ interface Props {
 
 const Routes: React.FC<Props> = ({ localStorageData }) => {
   const location = useLocation();
+  const [initialRender, setInitialRender] = useState(false);
   const previousLocation = usePrevious(location.pathname);
 
   const timeout = {
@@ -21,13 +22,23 @@ const Routes: React.FC<Props> = ({ localStorageData }) => {
     exit: 0,
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setInitialRender(true);
+    }, 300);
+  }, []);
+
   const getAnimationType = useMemo(() => {
-    const curStepNumber: number =
-      parseInt(location.pathname.split("/")[1]) || -2;
+    const curStepNumber = parseInt(location.pathname.split("/")[1]);
+
+    // starting page
+    if (isNaN(curStepNumber)) return true;
+
     let previousStepNumber: number = -1;
-    if (previousLocation) {
+    if (previousLocation?.split?.("/")[1]) {
       previousStepNumber = parseInt(previousLocation?.split?.("/")[1]);
     }
+
     return curStepNumber - previousStepNumber >= 0;
   }, [location?.pathname, previousLocation]);
 
@@ -42,13 +53,15 @@ const Routes: React.FC<Props> = ({ localStorageData }) => {
           mountOnEnter={false}
         >
           <div
-            className={`page-box down ${getAnimationType ? "right" : "left"}`}
+            className={`page-box ${initialRender ? "down" : ""} ${
+              getAnimationType ? "right" : "left"
+            }`}
           >
             <Switch location={location}>
               {formFields.map((field: any, index: number) => (
                 <PrivateRoute
                   path={`/${index}`}
-                  key={field.heading}
+                  key={location.pathname}
                   exact
                   component={FormBuilder}
                   routesCount={formFields.length}

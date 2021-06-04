@@ -96,6 +96,17 @@ h2 {
   transition: all 600ms linear, opacity 400ms linear 0.2s;
 }
 
+.page-box:not(.down) {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.page-box.down {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 600ms linear, opacity 400ms linear 0.2s;
+}
+
 .page {
   padding: 0 30px;
 }

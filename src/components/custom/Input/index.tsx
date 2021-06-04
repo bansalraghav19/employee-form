@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./style.css";
 
@@ -24,11 +24,11 @@ const Input: React.FC<Props> = ({
   inputType,
 }) => {
   const { value, hasError, errorMessage, onChange } = formValues?.[name] || {};
-  const [curInputType, setCurInputType] = useState(inputType);
+  const [curInputType, setCurInputType] = useState(() => inputType);
   let inputRef: HTMLInputElement | null = null;
   const selectionStart = useRef<number | null>(-1);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (value) {
       try {
         if (selectionStart?.current === -1)

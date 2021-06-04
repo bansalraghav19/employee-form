@@ -28,6 +28,7 @@ const Button: React.FC<Props> = ({
       eRef.current[name] = node;
     }
   }, []);
+
   return (
     <button
       style={style}

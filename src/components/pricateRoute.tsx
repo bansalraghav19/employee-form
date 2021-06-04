@@ -1,6 +1,5 @@
 import React from "react";
 import { Redirect, Route, useRouteMatch, useLocation } from "react-router";
-import useLocalStorage from "../hooks/useLocalStorage";
 
 interface RoutesI {
   path: string;
@@ -38,10 +37,10 @@ const PrivateRoute: React.FC<RoutesI> = ({
       return <Component {...props} {...rest} />;
 
     // invalid path redirect to home-start-page
-    return <Redirect to="/" />;
+    return <Redirect to="/0" />;
   };
 
-  return <Route render={(props) => getRoute(props)} />;
+  return <Route {...rest} render={(props) => getRoute(props)} />;
 };
 
 export default React.memo(PrivateRoute);

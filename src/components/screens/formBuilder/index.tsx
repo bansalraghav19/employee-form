@@ -1,16 +1,17 @@
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./style.css";
-import Button from "../../custom/Button";
-import CheckBox from "../../custom/CheckBox";
-import Input from "../../custom/Input";
-import TextArea from "../../custom/TextArea";
-import RadioGroup from "../../custom/Radio/RadioGroup";
-import OtpComponent from "../../custom/otpComponent";
 import { validator } from "../../../utilities/validators";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreInterface } from "../../../redux/store/store";
 import { getFormData } from "../../../redux/action";
+import DynammicField from "./DynammicField";
 
 interface PropsI {
   heading: string;
@@ -26,10 +27,6 @@ interface PropsI {
   nextRoute: number | string;
   lastRoute: boolean;
 }
-
-// type IndexOf<T extends [], S extends number[]> = S["length"] extends T["length"]
-//   ? S
-//   : IndexOf<T, [...S, S["length"]]>;
 
 const FormBuilder: React.FC<PropsI> = ({
   heading,
@@ -79,20 +76,19 @@ const FormBuilder: React.FC<PropsI> = ({
     });
   }, [selector]);
 
-  const onChange = async (
-    fieldName: string,
-    value: string,
-    fieldType: string
-  ) => {
-    const validatorData = await validator(value, fieldName, fieldType);
-    setFormValues((prevState: any) => {
-      const values = prevState[fieldName];
-      return {
-        ...prevState,
-        [fieldName]: { ...values, value, ...validatorData },
-      };
-    });
-  };
+  const onChange = useCallback(
+    async (fieldName: string, value: string, fieldType: string) => {
+      const validatorData = await validator(value, fieldName, fieldType);
+      setFormValues((prevState: any) => {
+        const values = prevState[fieldName];
+        return {
+          ...prevState,
+          [fieldName]: { ...values, value, ...validatorData },
+        };
+      });
+    },
+    []
+  );
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -142,37 +138,7 @@ const FormBuilder: React.FC<PropsI> = ({
   return (
     <form onSubmit={handleSubmit} className="page form-container" noValidate>
       <h2 className="form-heading">{heading}</h2>
-      {fields?.map((field: any) => {
-        switch (field.type) {
-          case "TEXTAREA":
-            return (
-              <TextArea
-                className="mb-20"
-                eRef={eRef}
-                {...field}
-                formValues={formValues}
-              />
-            );
-          case "INPUT":
-            return <Input eRef={eRef} {...field} formValues={formValues} />;
-          case "BUTTON":
-            return (
-              <Button eRef={eRef} {...field}>
-                {field.name}
-              </Button>
-            );
-          case "RADIO_GROUP":
-            return (
-              <RadioGroup eRef={eRef} {...field} formValues={formValues} />
-            );
-          case "CHECKBOX":
-            return <CheckBox {...field} formValues={formValues} />;
-          case "OTP":
-            return <OtpComponent {...field} formValues={formValues} />;
-          default:
-            return null;
-        }
-      })}
+      <DynammicField fields={fields} eRef={eRef} formValues={formValues} />
     </form>
   );
 };
