@@ -36,6 +36,7 @@ const FormBuilder: React.FC<PropsI> = ({
   stateDetails,
   fields,
   nextRoute,
+  lastRoute,
 }) => {
   const selector = useSelector((state: StoreInterface) => state.formData.data);
   const dispatch = useDispatch();
@@ -128,7 +129,12 @@ const FormBuilder: React.FC<PropsI> = ({
         const { value, hideFromStorage } = formValues[key];
         if (!hideFromStorage) localStorageValues[key] = value;
       });
-      dispatch(getFormData({ ...selector, ...localStorageValues }));
+      if (!lastRoute)
+        dispatch(getFormData({ ...selector, ...localStorageValues }));
+      else
+        dispatch(
+          getFormData({ ...selector, ...localStorageValues, formFilled: true })
+        );
       history.push(`/${nextRoute}`, { redirect: true });
     }
   };

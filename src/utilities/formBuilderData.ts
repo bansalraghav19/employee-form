@@ -1,3 +1,7 @@
+interface formI {
+  heading?: string;
+}
+
 export const formFields: any = [
   {
     heading: "Looking for Connecting with us?",

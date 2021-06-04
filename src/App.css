@@ -79,21 +79,26 @@ h2 {
   z-index: 10;
 }
 
-.pageSlider-enter > .page,
-.pageSlider-exit > .page {
+.pageSlider-enter.right > .page {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateX(100px);
 }
 
-.pageSlider-enter.pageSlider-enter-active > .page {
-  opacity: 1;
+.pageSlider-enter.left > .page {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.pageSlider-enter.pageSlider-enter-active.right > .page,
+.pageSlider-enter.pageSlider-enter-active.left > .page {
   transform: translateX(0);
-  transition: all 600ms linear;
+  opacity: 1;
+  transition: all 600ms linear, opacity 400ms linear 0.2s;
 }
 
 .pageSlider-enter.pageSlider-exit-active > .page {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateX(100px);
   transition: all 600ms linear;
 }
 
