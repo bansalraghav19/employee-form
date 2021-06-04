@@ -17,12 +17,13 @@ const Routes: React.FC<Props> = ({ localStorageData }) => {
   const previousLocation = usePrevious(location.pathname);
 
   const timeout = {
-    enter: 2000,
+    enter: 600,
     exit: 0,
   };
 
   const getAnimationType = useMemo(() => {
-    const curStepNumber: number = parseInt(location.pathname.split("/")[1]);
+    const curStepNumber: number =
+      parseInt(location.pathname.split("/")[1]) || -2;
     let previousStepNumber: number = -1;
     if (previousLocation) {
       previousStepNumber = parseInt(previousLocation?.split?.("/")[1]);
@@ -40,7 +41,9 @@ const Routes: React.FC<Props> = ({ localStorageData }) => {
           unmountOnExit={true}
           mountOnEnter={false}
         >
-          <div className={`page-box ${getAnimationType ? "right" : "left"}`}>
+          <div
+            className={`page-box down ${getAnimationType ? "right" : "left"}`}
+          >
             <Switch location={location}>
               {formFields.map((field: any, index: number) => (
                 <PrivateRoute

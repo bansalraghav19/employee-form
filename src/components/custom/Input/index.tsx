@@ -1,10 +1,4 @@
-import React, {
-  MutableRefObject,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./style.css";
 
@@ -34,7 +28,7 @@ const Input: React.FC<Props> = ({
   let inputRef: HTMLInputElement | null = null;
   const selectionStart = useRef<number | null>(-1);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (value) {
       try {
         if (selectionStart?.current === -1)

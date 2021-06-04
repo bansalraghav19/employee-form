@@ -96,12 +96,6 @@ h2 {
   transition: all 600ms linear, opacity 400ms linear 0.2s;
 }
 
-.pageSlider-enter.pageSlider-exit-active > .page {
-  opacity: 0;
-  transform: translateX(100px);
-  transition: all 600ms linear;
-}
-
 .page {
   padding: 0 30px;
 }

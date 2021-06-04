@@ -99,7 +99,7 @@ export const formFields: any = [
     heading: "What's your Email Address?",
     fields: [
       {
-        name: "Email Adress",
+        name: "Email Address",
         type: "INPUT",
         required: true,
         whitespace: true,
@@ -110,7 +110,9 @@ export const formFields: any = [
         name: "Next",
       },
     ],
-    stateDetails: [{ name: "Email Adress", type: "INPUT", inputType: "email" }],
+    stateDetails: [
+      { name: "Email Address", type: "INPUT", inputType: "email" },
+    ],
   },
   {
     heading: "Enter the OTP Recieved?",
