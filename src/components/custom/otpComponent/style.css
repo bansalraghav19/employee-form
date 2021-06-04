@@ -13,7 +13,6 @@
   text-align: center;
   margin-right: 10px;
   outline: none;
-  margin-bottom: 30px;
   transition: all 0.5s;
 }
 
@@ -24,4 +23,10 @@
 .otp-container input:focus,
 .otp-container input:valid {
   border-bottom-color: var(--primary-color);
+}
+
+@media only screen and (max-width: 767px) {
+  .otp-container input {
+    width: 30px;
+  }
 }

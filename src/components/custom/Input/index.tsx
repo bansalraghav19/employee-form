@@ -26,8 +26,6 @@ const Input: React.FC<Props> = ({
   const { value, hasError, errorMessage, onChange } = formValues?.[name] || {};
   const [curInputType, setCurInputType] = useState(() => inputType);
 
-  console.log(value);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange instanceof Function) {
       onChange(event?.target?.name, event?.target?.value, inputType);

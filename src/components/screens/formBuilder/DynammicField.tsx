@@ -16,14 +16,7 @@ const DynammicField: React.FC<PropsI> = ({ fields, formValues, eRef }) => {
   return fields?.map((field: any) => {
     switch (field.type) {
       case "TEXTAREA":
-        return (
-          <TextArea
-            className="mb-20"
-            eRef={eRef}
-            {...field}
-            formValues={formValues}
-          />
-        );
+        return <TextArea eRef={eRef} {...field} formValues={formValues} />;
       case "INPUT":
         return <Input eRef={eRef} {...field} formValues={formValues} />;
       case "BUTTON":

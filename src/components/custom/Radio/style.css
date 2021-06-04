@@ -59,6 +59,7 @@
 .radio-group-container {
   display: flex;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .radio-container .tabber {
